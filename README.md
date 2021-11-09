@@ -333,3 +333,28 @@ console.log(this)
 
 ```
 If the above is run it can be seen the global variable name is overwritten instead of `var c` name properties
+
+Fix of this bug
+
+```js
+var name = "Mir"
+console.log(this)
+var c = {
+    name:'John'
+    log:function(){
+        var self = this// self is pointing to the object location
+        self.name = 'Doe'//overwrite name property
+        console.log('from log function before invocation',self.name)
+        var setName = function(){
+            self.name = 'Sahib'// again overwrite the name property
+        }
+        setName()
+        console.log('from log function after invocation',self,name)
+    }
+}
+c.log()
+
+console.log(this)
+
+```
+If we run above code it can be seen that the object name property is overwritten twice and global name variable is not overwritten
