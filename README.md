@@ -358,3 +358,19 @@ console.log(this)
 
 ```
 If we run above code it can be seen that the object name property is overwritten twice and global name variable is not overwritten
+
+Array in Javascript
+
+In js array can hold primitive,object and also function because js is dynamically typed
+```js
+var arr = [
+    1,
+    false,
+    function(name){
+        console.log(name)
+    },
+    {name:'John',address:'50 king st'}
+]
+
+arr[2](arr[3]) // invoking function reside in 2nd place of the array with 3rd place of the array as parameter
+```
