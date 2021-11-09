@@ -135,3 +135,91 @@ Pass by value & Pass by reference
     a.name = 'Sahib'
     console.log(b) // return name:Sahib
  ```
+
+ Function and Object
+
+ - In javascript function are treated like variable which mean we can assign function to a variable,pass a function as parameter or create function on the fly(defination of first class function).
+- In javascript function reside in memory as special type of object which has special property.
+- In javascript we attach the following thing with a function
+  1.  primitive type
+  2.  object
+  3.  another function
+
+- In javascript function has two hidden property
+  1. Name (function can have a name or not,function without a name are called anonymous function)
+  2. Code (body of the function which is invocable)
+
+  ```js
+  function greet(){
+      console.log('hi')
+  }
+
+  greet.language = 'English' // attaching a primitive type string into the function greet
+  greet.getLanguage = function(){
+      console.log(this.language)
+  }
+  greet.person = {name:'Mir'}
+  
+  console.log(greet.language) // return 'English'
+  console.log(greet.getLanguage()) // return 'English'
+  console.log(greet.person.name) // return 'Mir'
+  ```
+Function statement & function expression
+- In javascript statement does the action/work and expression return a value
+
+```js
+    a = 3 // js express return a memory location to variable a
+    3+1 // code in the memory is executen and return to the console
+
+    if(a===3){ // js statement,doesn't return any value 
+        //do something
+    }
+```
+- In simple word statement doesn't return any value 
+
+- Since function is an object, we can use function as statement and also as an expression
+
+Function Statement
+```js
+// this is is function statement 
+// it reside in memory and don't return anything unless it get executed
+    function greet(){
+        console.log('hi')
+    }
+```
+- function statement can be hoisted because it already reside in the memory
+
+```js
+    greet() // hoisting, function is called before it was define
+    function greet(){
+        console.log('hi')
+    }
+```
+
+Function expression
+```js
+    var anonymousGreet = function(){
+        console.log('hi')
+    }
+```
+- In the code above a memory is allocated when the function is defined and that memory location is return to the anonymous variable (the memory location is return using the `=` operator, `=` is a special function).Thus proving that function can be defined as express.
+- To invoke the code part of the function we can do
+
+```js
+var anonymousGreet = function(){
+        console.log('hi')
+    }
+    anonymousGreet()// invoking the code part of the function
+```
+
+- function can be created on the fly 
+
+```js
+    function log(a){ // function pass as parameter
+        a() // function is invoked 
+    }
+
+    log(function(){ // function is created on the flu
+        console.log('Hi')
+    })
+```
