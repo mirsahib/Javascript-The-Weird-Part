@@ -223,3 +223,113 @@ var anonymousGreet = function(){
         console.log('Hi')
     })
 ```
+
+- Object,Function and this
+`this` keyword point to the global scope or the the scope where it reside
+
+```js
+function a(){
+    console.log(this)
+}
+a() // return global object (for browser this will be different,it will return window object)
+
+var b = function(){
+    console.log(this)
+}
+b() // return global object
+```
+
+we can attach a global variable inside a function using this keyword
+
+```js
+function a(){
+    this.newVar = 'hello'
+}
+console.log(newVar) // return hello
+```
+
+- `this` keyword inside an object method
+Inside an object method `this` keyword point to the very object that it was contain
+
+```js
+var c = {
+    name:"Mir",
+    log:function(){
+        console.log(this)
+    }
+}
+c.log() //return object c = {name: 'Mir', log: ƒ}
+```
+
+Note: `this` keyword point the memory location of the object if it called inside an object 
+
+- possible bug in javascript 
+try to run the example below in your browser console
+
+```js
+var c = {
+    name:"John"
+    log:function(){
+        console.log(this)
+    }
+}
+c.log() // return {name: 'John', log: ƒ} 
+
+```
+In the above function `this` keyword is point toward the `var c` memory location.
+
+Now let overwrite the name property
+```js
+var c = {
+    name:"John"
+    log:function(){
+        this.name = 'Doe' // overwrite the name property
+        console.log(this)
+    }
+}
+c.log() // return {name: 'Doe', log: ƒ} 
+```
+As it can be seen here `this` keyword is pointing to the `var c` memory location and we can change the object property using `this` keyword
+
+```js
+var c = {
+    name:"John",
+    log:function(){
+        this.name = 'Doe'
+        console.log('from log function',this)
+        var setName = function(){
+            console.log('from setName function',this)
+        }
+        setName()
+    }
+}
+
+c.log() 
+// from log function {name: 'Doe', log: ƒ}
+// from setName function Window {} ,browser global object or node global object if in node env
+```
+As it can be a nested function of a object method point toward the global object of js which might be a bug of js.
+
+- Use case (how this bug will affect the js coding flow)
+
+```js
+var name = "Mir"
+console.log(this)
+var c = {
+    name:'John'
+    log:function(){
+        this.name = 'Doe'
+        console.log('from log function before invocation',this.name)
+        var setName = function(){
+            this.name = 'Sahib'
+        }
+        setName()
+        console.log('from log function after invocation',this,name)
+    }
+}
+c.log()
+
+console.log(this)
+
+```
+If the above is run it can be seen the global variable name is overwritten instead of `var c` name properties
